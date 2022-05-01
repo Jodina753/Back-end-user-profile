@@ -3,16 +3,14 @@ const app = express.Router();
 const selectQueries = require("../mySQL/queries/index");
 
 
-app.delete("/:email", async (req, res) => {
+app.delete("/", async (req, res) => {
 
   const results = await req.asyncMySQL(
-    selectQueries.selectUserCount(req.params.email, req.headers.password)
+    selectQueries.selectUserCount(req.headers.email, req.headers.password)
   );
 
-  const { count } = results[0];
-
-  if (count) {
-    req.asyncMySQL(selectQueries.deleteUser(req.params.email, req.headers.password));
+  if (results[0].count > 0) {
+    req.asyncMySQL(selectQueries.deleteUser(req.headers.email, req.headers.password));
 
     res.send({ status: 200, error: "User has been deleted." });
 
