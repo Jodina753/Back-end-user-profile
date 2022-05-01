@@ -22,9 +22,11 @@ app.listen(port, () => console.log(`I am Listening on port ${port}`));
 //Routes
 //Route 1 - Add user
 app.use("/add", require("./routes/add"));
-// //Route 2 - Modify user
+//Route 2 - Modify user
 app.use("/modify", require("./routes/modify"));
-// //Route 3 - Delete user
+//Route 3 - Delete user
 app.use("/delete", require("./routes/delete"));
-// //Route 4 - View user
+//Route 4 - View user
 app.use("/get", require("./routes/get"));
+//Route 5 - Login
+app.use("/login", require("./routes/login"));

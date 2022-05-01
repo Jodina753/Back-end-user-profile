@@ -53,7 +53,7 @@ module.exports = {
   },
 
   addToken: function (user_id, token) {
-    return `INSERT INTO tokens (user_id,token) VALUES ("${user_id}", "${token}")`;
+    return `INSERT INTO tokens (user_id, token) VALUES ("${user_id}", "${token}")`;
   },
 
   logout: function (token) {
