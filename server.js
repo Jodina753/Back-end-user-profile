@@ -19,7 +19,6 @@ const port = process.env.PORT || 8002;
 app.listen(port, () => console.log(`I am Listening on port ${port}`));
 
 
-//Routes
 //Route 1 - Add user
 app.use("/add", require("./routes/add"));
 //Route 2 - Modify user
