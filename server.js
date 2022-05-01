@@ -30,3 +30,5 @@ app.use("/delete", require("./routes/delete"));
 app.use("/get", require("./routes/get"));
 //Route 5 - Login
 app.use("/login", require("./routes/login"));
+//Route 6 - Logout
+app.use("/logout", require("./routes/logout"));

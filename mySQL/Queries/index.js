@@ -2,7 +2,7 @@ module.exports = {
   selectUserCount: function (email, password) {
     return `SELECT count(*) as count
                       FROM users
-                          WHERE email LIKE "${email}"`;
+                          WHERE email LIKE "${email}" AND password= "${password}"`;
   },
 
   getUserIdFromToken: function (token) {
