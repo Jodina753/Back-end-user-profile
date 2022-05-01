@@ -2,12 +2,22 @@ module.exports = {
   selectUserCount: function (email, password) {
     return `SELECT count(*) as count
                       FROM users
-                          WHERE email LIKE "${email}" AND password="${password}"`;
+                          WHERE email LIKE "${email}"`;
   },
 
-  insertUser: function (email, username, password) {
+  getUserIdFromToken: function (token) {
+    return `SELECT user_id
+                    FROM tokens
+                        WHERE token LIKE "${token}"`;
+  },
+
+  addUserRecord: function (email, username, password) {
     return `INSERT INTO users (email, username, password) 
       VALUES ("${email}", "${username}", "${password}");`;
+  },
+
+  insertUserPassword: function (user_id, password) {
+    return `INSERT INTO login (user_id, password) VALUES ("${user_id}","${password}")`;
   },
 
   updateEmail: function (origin_email, email) {
@@ -42,7 +52,11 @@ module.exports = {
     return `SELECT * FROM users WHERE email= "${origin_email}" AND password= "${password}"`;
   },
 
-  addToken: function (token) {
-    return `INSERT INTO users (token) VALUES ("${token}")`;
+  addToken: function (user_id, token) {
+    return `INSERT INTO tokens (user_id,token) VALUES ("${user_id}", "${token}")`;
+  },
+
+  logout: function (token) {
+    return `DELETE FROM tokens WHERE token= "${token}"`;
   },
 };

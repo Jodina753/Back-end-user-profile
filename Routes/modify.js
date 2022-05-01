@@ -2,17 +2,15 @@ const express = require("express");
 const app = express.Router();
 const selectQueries = require("../mySQL/Queries/index");
 
-app.patch("/:email/:password", async (req, res) => {
+app.patch("/", async (req, res) => {
   const results = await req.asyncMySQL(
-    selectQueries.selectUserCount(req.params.email, req.params.password) //included password as a params
+    selectQueries.selectUserCount(req.headers.email)
   );
 
-  const { count } = results[0];
-
-  if (count) {
+  if (results[0].count > 0) {
     if (req.body.email) {
       req.asyncMySQL(
-        selectQueries.updateEmail(req.params.email, req.body.email)
+        selectQueries.updateEmail(req.headers.email, req.body.email)
       );
     }
 
