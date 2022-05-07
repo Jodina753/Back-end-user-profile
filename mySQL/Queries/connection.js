@@ -5,7 +5,7 @@ const mysql = require("mysql");
 const connection = mysql.createConnection({
   database: "weather_api_database", //database name
   user: "root", //user name
-  password: "N0ir_Nyoto", //user password
+  password: "N0ir_Nyoto13", //user password
   host: "localhost", //IP addess
   port: "3306", //usually sql runs on this specific port
 });

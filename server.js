@@ -19,14 +19,27 @@ const port = process.env.PORT || 8002;
 app.listen(port, () => console.log(`I am Listening on port ${port}`));
 
 
+async function authenticate(req, res, next) {
+  const results = await req.asyncMySQL(
+    selectQueries.getUserIdFromToken(req.headers.token)
+  );
+  console.log(results, req.headers.token);
+
+  if (results.length === 1) {
+    next();
+  } else {
+    res.send({ status: 0, error: "try again fool" });
+  }
+}
+
 //Route 1 - Add user
 app.use("/add", require("./routes/add"));
 //Route 2 - Modify user
-app.use("/modify", require("./routes/modify"));
+app.use("/modify", authenticate, require("./routes/modify"));
 //Route 3 - Delete user
-app.use("/delete", require("./routes/delete"));
+app.use("/delete", authenticate, require("./routes/delete"));
 //Route 4 - View user
-app.use("/get", require("./routes/get"));
+app.use("/get", authenticate, require("./routes/get"));
 //Route 5 - Login
 app.use("/login", require("./routes/login"));
 //Route 6 - Logout
