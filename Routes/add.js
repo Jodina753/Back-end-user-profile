@@ -14,6 +14,8 @@ app.post("/", async (req, res) => {
     const results = await req.asyncMySQL(
       selectQueries.addUserRecord(req.body.email, req.body.username, req.body.password)
     );
+    // await req.asyncMySQL(selectQueries.insertUserPassword(result.insertId, req.body.password))
+    
     res.send({ status: 200, error: "User added."});
   }
 });

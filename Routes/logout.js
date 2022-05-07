@@ -3,7 +3,6 @@ const app = express.Router();
 const selectQueries = require("../mySQL/Queries/index");
 
 app.delete("/", async (req, res) => {
-  console.log(req.headers);
 
   req.asyncMySQL(selectQueries.logout(req.headers.token));
 
