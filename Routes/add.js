@@ -17,7 +17,7 @@ app.post("/", async (req, res) => {
       selectQueries.addUserRecord(req.body.email, req.body.username, req.body.password)
     );
 
-    const hashPassword = sha256(req.body.password)
+    const hashPassword = sha256("user-login-auth:" + req.body.password)
 
     await req.asyncMySQL(selectQueries.insertUserPassword(result.insertId, hashPassword)) //insert the hashed password version, not the actual password
     
@@ -26,3 +26,4 @@ app.post("/", async (req, res) => {
 });
 
 module.exports = app; 
+ 

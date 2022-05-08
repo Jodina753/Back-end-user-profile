@@ -7,7 +7,7 @@ const sha256 = require("sha256");
 app.post("/", async (req, res) => {
 
   //when the password is given at login, will hash it and then check if it matches the one in the database
-  const hashPassword = sha256(req.body.password)
+  const hashPassword = sha256("user-login-auth:" + req.body.password)
 
   const results = await req.asyncMySQL(
     selectQueries.login(req.body.email, hashPassword)
