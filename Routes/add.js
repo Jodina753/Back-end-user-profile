@@ -12,8 +12,11 @@ app.post("/", async (req, res) => {
   if (results[0].count > 0) { //ALLOWING THE ADDING OF DUPLICATE RECORDS - THIS SHOULDNT HAPPEN
     res.send({ status: 404, error: "User already exists! Please login." });
   } else {
+
+const hashPassword = sha256(req.body.password)
+
     const results = await req.asyncMySQL(
-      selectQueries.addUserRecord(req.body.email, req.body.username, req.body.password)
+      selectQueries.addUserRecord(req.body.email, req.body.username, hashPassword)
     );
     // await req.asyncMySQL(selectQueries.insertUserPassword(result.insertId, req.body.password))
     

@@ -17,7 +17,7 @@ module.exports = {
   },
 
   insertUserPassword: function (user_id, password) {
-    return `INSERT INTO login (user_id, password) VALUES ("${user_id}","${password}")`;
+    return `INSERT INTO login (user_id, hash_password) VALUES ("${user_id}","${password}")`;
   },
 
   updateEmail: function (origin_email, email) {
