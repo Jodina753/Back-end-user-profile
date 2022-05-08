@@ -24,7 +24,7 @@ app.post("/", async (req, res) => {
 
   const token = utils.getUniqueId();
 
-  req.asyncMySQL(selectQueries.addToken(results[0].id, token));
+  req.asyncMySQL(selectQueries.addToken(results[0].user_id, token));
 
   res.status(200).send({ token });
 });

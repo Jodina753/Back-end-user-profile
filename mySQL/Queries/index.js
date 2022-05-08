@@ -1,9 +1,10 @@
 module.exports = {
-  selectUserCount: function (email, password) {
+  selectUserCount: function (email) {
     return `SELECT count(*) as count
                       FROM users
-                          WHERE email LIKE "${email}" AND password= "${password}"`;
+                          WHERE email LIKE "${email}"`;
   },
+
 
   getUserIdFromToken: function (token) {
     return `SELECT user_id
@@ -49,7 +50,10 @@ module.exports = {
   },
 
   login: function (origin_email, password) {
-    return `SELECT * FROM users WHERE email= "${origin_email}" AND hash_password= "${password}"`;
+    return `SELECT users.user_id FROM users 
+    JOIN login
+      ON users.user_id = login.user_id
+        WHERE email= "${origin_email}" AND hash_password= "${password}"`;
   },
 
   addToken: function (user_id, token) {
