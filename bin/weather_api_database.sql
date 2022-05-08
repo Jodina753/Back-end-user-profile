@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2022 at 02:03 PM
+-- Generation Time: May 09, 2022 at 01:47 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.28
 
@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `login` (
+  `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `hash_password` varchar(256) NOT NULL,
   `entry _date` timestamp NOT NULL DEFAULT current_timestamp()
@@ -37,8 +38,20 @@ CREATE TABLE `login` (
 -- Dumping data for table `login`
 --
 
-INSERT INTO `login` (`user_id`, `hash_password`, `entry _date`) VALUES
-(1, '8222d14cad3f537a3b77c29225fcf1e9d42c1e48ca7f4576890866df51fdd990', '2022-05-08 11:59:27');
+INSERT INTO `login` (`id`, `user_id`, `hash_password`, `entry _date`) VALUES
+(6, 6, '6dd1a4d3ea86d3abc8f46bcce53be910d66ff1f21b9b580d2918dbfc9e7b5a52', '2022-05-08 23:43:42');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `login_log`
+--
+
+CREATE TABLE `login_log` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `entry_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -47,18 +60,10 @@ INSERT INTO `login` (`user_id`, `hash_password`, `entry _date`) VALUES
 --
 
 CREATE TABLE `tokens` (
-  `user_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `token` varchar(128) NOT NULL,
   `entry_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tokens`
---
-
-INSERT INTO `tokens` (`user_id`, `token`, `entry_date`) VALUES
-(0, '0', '2022-05-08 11:59:59'),
-(1, 'bUwo3bH7fygljVh6STIgwG9UpsqsuDMf1652011311715', '2022-05-08 12:01:51');
 
 -- --------------------------------------------------------
 
@@ -67,10 +72,9 @@ INSERT INTO `tokens` (`user_id`, `token`, `entry_date`) VALUES
 --
 
 CREATE TABLE `users` (
-  `user_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `username` varchar(32) NOT NULL,
   `email` varchar(32) NOT NULL,
-  `password` varchar(256) NOT NULL,
   `entry_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -78,28 +82,59 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `entry_date`) VALUES
-(1, 'Hazelnut33', 'Kinder@Surprise.org.uk99', 'Sw33ts7090', '2022-05-08 11:59:27');
+INSERT INTO `users` (`id`, `username`, `email`, `entry_date`) VALUES
+(6, 'EHunt', 'Ethan_Hunt@MissionImpossible.org', '2022-05-08 23:43:42');
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `login`
+--
+ALTER TABLE `login`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `login_log`
+--
+ALTER TABLE `login_log`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tokens`
+--
+ALTER TABLE `tokens`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
+-- AUTO_INCREMENT for table `login`
+--
+ALTER TABLE `login`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `login_log`
+--
+ALTER TABLE `login_log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

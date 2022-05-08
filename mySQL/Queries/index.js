@@ -5,16 +5,15 @@ module.exports = {
                           WHERE email LIKE "${email}"`;
   },
 
-
   getUserIdFromToken: function (token) {
     return `SELECT user_id
                     FROM tokens
                         WHERE token LIKE "${token}"`;
   },
 
-  addUserRecord: function (email, username, password) {
-    return `INSERT INTO users (email, username, password) 
-      VALUES ("${email}", "${username}", "${password}");`;
+  addUserRecord: function (email, username) {
+    return `INSERT INTO users (email, username) 
+      VALUES ("${email}", "${username}")`;
   },
 
   insertUserPassword: function (user_id, password) {

@@ -8,8 +8,10 @@ app.post("/", async (req, res) => {
   const results = await req.asyncMySQL(
     selectQueries.selectUserCount(req.body.email)
   );
+
 console.log(results, selectQueries.selectUserCount(req.body.email))
-  if (results[0].count > 0) { //ALLOWING THE ADDING OF DUPLICATE RECORDS - THIS SHOULDNT HAPPEN
+
+  if (results[0].count > 0) { 
     res.send({ status: 404, error: "User already exists! Please login." });
   } else {
 
