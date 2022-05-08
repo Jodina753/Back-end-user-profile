@@ -49,7 +49,7 @@ module.exports = {
   },
 
   login: function (origin_email, password) {
-    return `SELECT * FROM users WHERE email= "${origin_email}" AND password= "${password}"`;
+    return `SELECT * FROM users WHERE email= "${origin_email}" AND hash_password= "${password}"`;
   },
 
   addToken: function (user_id, token) {

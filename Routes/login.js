@@ -2,10 +2,15 @@ const express = require("express");
 const app = express.Router();
 const utils = require("./utils");
 const selectQueries = require("../mySQL/Queries/index");
+const sha256 = require("sha256"); 
 
 app.post("/", async (req, res) => {
+
+  //when the password is given at login, will hash it and then check if it matches the one in the database
+  const hashPassword = sha256(req.body.password)
+
   const results = await req.asyncMySQL(
-    selectQueries.login(req.body.email, req.body.password)
+    selectQueries.login(req.body.email, hashPassword)
   );
 
   if (results.length === 0) {

@@ -13,12 +13,13 @@ app.post("/", async (req, res) => {
     res.send({ status: 404, error: "User already exists! Please login." });
   } else {
 
-const hashPassword = sha256(req.body.password)
-
-    const results = await req.asyncMySQL(
-      selectQueries.addUserRecord(req.body.email, req.body.username, hashPassword)
+    const result = await req.asyncMySQL(
+      selectQueries.addUserRecord(req.body.email, req.body.username, req.body.password)
     );
-    // await req.asyncMySQL(selectQueries.insertUserPassword(result.insertId, req.body.password))
+
+    const hashPassword = sha256(req.body.password)
+
+    await req.asyncMySQL(selectQueries.insertUserPassword(result.insertId, hashPassword)) //insert the hashed password version, not the actual password
     
     res.send({ status: 200, error: "User added."});
   }
