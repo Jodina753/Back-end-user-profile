@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express.Router();
 const selectQueries = require("../mySQL/Queries/index");
+const sha256 = require("sha256");
 
 app.post("/", async (req, res) => {
   

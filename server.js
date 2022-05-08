@@ -10,14 +10,13 @@ app.use(bodyParser.json());
 
 //access to SQL database
 app.use((req, res, next) => {
-    req.asyncMySQL = asyncMySQL; 
-    next();
-  });
+  req.asyncMySQL = asyncMySQL;
+  next();
+});
 
-  //START SERVER
+//START SERVER
 const port = process.env.PORT || 8002;
 app.listen(port, () => console.log(`I am Listening on port ${port}`));
-
 
 async function authenticate(req, res, next) {
   const results = await req.asyncMySQL(
