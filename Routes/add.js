@@ -9,8 +9,6 @@ app.post("/", async (req, res) => {
     selectQueries.selectUserCount(req.body.email)
   );
 
-console.log(results, selectQueries.selectUserCount(req.body.email))
-
   if (results[0].count > 0) { 
     res.send({ status: 404, error: "User already exists! Please login." });
   } else {
@@ -21,7 +19,7 @@ console.log(results, selectQueries.selectUserCount(req.body.email))
 
     const hashPassword = sha256("user-login-auth:" + req.body.password)
 
-    await req.asyncMySQL(selectQueries.insertUserPassword(result.insertId, hashPassword)) //insert the hashed password version, not the actual password
+    await req.asyncMySQL(selectQueries.insertUserPassword(result.insertId, hashPassword)) 
     
     res.send({ status: 200, error: "User added."});
   }

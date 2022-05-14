@@ -3,10 +3,18 @@ const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const asyncMySQL = require("./mySQL/Queries/connection");
+const selectQueries = require("./mySQL/Queries/index");
+const utils = require("./Routes/utils");
 
 //middleware
 app.use(cors());
 app.use(bodyParser.json());
+
+//store data as files to local storage
+app.use((req, res, next) => {
+  utils.addToLog(req.headers);
+  next();
+})
 
 //access to SQL database
 app.use((req, res, next) => {
@@ -18,11 +26,11 @@ app.use((req, res, next) => {
 const port = process.env.PORT || 8002;
 app.listen(port, () => console.log(`I am Listening on port ${port}`));
 
+//authenticate
 async function authenticate(req, res, next) {
   const results = await req.asyncMySQL(
     selectQueries.getUserIdFromToken(req.headers.token)
   );
-  console.log(results, req.headers.token);
 
   if (results.length === 1) {
     next();

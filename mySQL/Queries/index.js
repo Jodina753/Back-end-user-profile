@@ -8,7 +8,8 @@ module.exports = {
   getUserIdFromToken: function (token) {
     return `SELECT user_id
                     FROM tokens
-                        WHERE token LIKE "${token}"`;
+                        WHERE token LIKE "${token}"
+                          LIMIT 1`;
   },
 
   addUserRecord: function (email, username) {
@@ -35,10 +36,10 @@ module.exports = {
       WHERE password= "${origin_password}" AND email like "${origin_email}"`;
   },
 
-  updateLocation: function (origin_email, origin_password, location) {
-    return `UPDATE users SET location= "${location}" 
-      WHERE password= "${origin_password}" AND email like "${origin_email}"`;
-  },
+  // updateLocation: function (origin_email, origin_password, location) {
+  //   return `UPDATE users SET location= "${location}" 
+  //     WHERE password= "${origin_password}" AND email like "${origin_email}"`;
+  // },
 
   deleteUser: function (origin_email, origin_password) {
     return `DELETE FROM users WHERE email= "${origin_email}" AND password= "${origin_password}"`;
@@ -49,10 +50,11 @@ module.exports = {
   },
 
   login: function (origin_email, password) {
-    return `SELECT users.user_id FROM users 
-    JOIN login
-      ON users.user_id = login.user_id
-        WHERE email= "${origin_email}" AND hash_password= "${password}"`;
+return `SELECT count(*) FROM users
+                  JOIN login
+                    ON users.id = login.user_id
+                      WHERE email LIKE "${origin_email}" AND hash_password LIKE "${password}"
+                        LIMIT 1`;
   },
 
   addToken: function (user_id, token) {
