@@ -4,7 +4,7 @@ const selectQueries = require("../mySQL/Queries/index");
 
 app.patch("/", async (req, res) => {
   const results = await req.asyncMySQL(
-    selectQueries.selectUserCount(req.headers.email, req.headers.password)
+    selectQueries.selectUserCount(req.headers.email)
   );
 
   if (results[0].count > 0) {
@@ -16,31 +16,13 @@ app.patch("/", async (req, res) => {
 
     if (req.body.username) {
       req.asyncMySQL(
-        selectQueries.updateUsername(
-          req.headers.email,
-          req.headers.password,
-          req.body.username
-        )
+        selectQueries.updateUsername(req.headers.email, req.body.username)
       );
     }
 
     if (req.body.password) {
       req.asyncMySQL(
-        selectQueries.updatePassword(
-          req.headers.email,
-          req.headers.password,
-          req.body.password
-        )
-      );
-    }
-
-    if (req.body.location) {
-      req.asyncMySQL(
-        selectQueries.updatePassword(
-          req.headers.email,
-          req.headers.password,
-          req.body.location
-        )
+        selectQueries.updatePassword(req.headers.email, req.body.password)
       );
     }
 

@@ -26,31 +26,37 @@ module.exports = {
       WHERE email like "${origin_email}"`;
   },
 
-  updateUsername: function (origin_email, origin_password, username) {
-    return `UPDATE users SET username= "${username}" 
-      WHERE email like "${origin_email}" AND password= "${origin_password}"`;
-  },
-
-  updatePassword: function (origin_email, origin_password, password) {
-    return `UPDATE users SET password= "${password}" 
-      WHERE password= "${origin_password}" AND email like "${origin_email}"`;
-  },
-
-  // updateLocation: function (origin_email, origin_password, location) {
-  //   return `UPDATE users SET location= "${location}" 
-  //     WHERE password= "${origin_password}" AND email like "${origin_email}"`;
+  // updatePassword: function (origin_email, password) {
+  //   return `UPDATE login SET hash_password= "${password}"
+  //                  WHERE email= "${origin_email}"`;
   // },
 
-  deleteUser: function (origin_email, origin_password) {
-    return `DELETE FROM users WHERE email= "${origin_email}" AND password= "${origin_password}"`;
+  updatePassword: function (origin_email, password) {
+    return `UPDATE login SET hash_password= "${password}"
+              WHERE email IN (
+                SELECT email
+                  FROM users
+                    WHERE email="${origin_email}"`;
   },
 
-  getUser: function (origin_email, password) {
-    return `SELECT * FROM users WHERE email= "${origin_email}" AND password="${password}"`;
+  updateUsername: function (origin_email, newUsername) {
+    return `UPDATE users SET username= "${newUsername}"
+              WHERE email= "${origin_email}"`;
+  },
+
+  deleteUser: function (token) {
+    return `DELETE FROM users WHERE token= "${token}"`;
+  },
+
+  getUser: function (token) {
+    return `SELECT user_id, email, username FROM tokens
+              JOIN users
+                ON tokens.user_id = users.id
+                  WHERE token= "${token}"`;
   },
 
   login: function (origin_email, password) {
-return `SELECT count(*) FROM users
+    return `SELECT users.id FROM users
                   JOIN login
                     ON users.id = login.user_id
                       WHERE email LIKE "${origin_email}" AND hash_password LIKE "${password}"

@@ -11,9 +11,10 @@ app.post("/", async (req, res) => {
     selectQueries.login(req.body.email, hashPassword)
   );
 
-  if (results.length === 0) {
+console.log(results)
+
+  if (!results[0]) {
     res.send({
-      status: 404,
       error:
         "You've entered an incorrect password or email, please check and try again.",
     });
@@ -22,9 +23,9 @@ app.post("/", async (req, res) => {
 
   const token = utils.getUniqueId();
 
-  req.asyncMySQL(selectQueries.addToken(results[0].id, token)); //.user_id
+  req.asyncMySQL(selectQueries.addToken(results[0].id, token));
 
-  res.status(200).send({ token });
+  res.send({token});
 });
 
 module.exports = app;

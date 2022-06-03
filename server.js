@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
   utils.addToLog(req.headers);
   next();
-})
+});
 
 //access to SQL database
 app.use((req, res, next) => {
@@ -31,11 +31,13 @@ async function authenticate(req, res, next) {
   const results = await req.asyncMySQL(
     selectQueries.getUserIdFromToken(req.headers.token)
   );
+  // console.log(results);
 
-  if (results.length === 1) {
-    next();
+  if (!results[0]) {
+    res.send({ status: 0, error: "try again" });
   } else {
-    res.send({ status: 0, error: "try again fool" });
+    
+    next();
   }
 }
 
