@@ -21,31 +21,36 @@ module.exports = {
     return `INSERT INTO login (user_id, hash_password) VALUES ("${user_id}","${password}")`;
   },
 
-  updateEmail: function (origin_email, email) {
-    return `UPDATE users SET email= "${email}" 
-      WHERE email like "${origin_email}"`;
+  updateEmail: function (newEmail, token) {
+    return `UPDATE users 
+              JOIN tokens
+                ON users.id = tokens.user_id 
+                  SET email= "${newEmail}" 
+                    WHERE token LIKE "${token}"`;
   },
 
-  // updatePassword: function (origin_email, password) {
-  //   return `UPDATE login SET hash_password= "${password}"
-  //                  WHERE email= "${origin_email}"`;
-  // },
-
-  updatePassword: function (origin_email, password) {
-    return `UPDATE login SET hash_password= "${password}"
-              WHERE email IN (
-                SELECT email
-                  FROM users
-                    WHERE email="${origin_email}"`;
+  updateUsername: function (newUsername, token) {
+    return `UPDATE users 
+              JOIN tokens
+                ON users.id = tokens.user_id
+                  SET username= "${newUsername}"
+                    WHERE token LIKE "${token}"`;
   },
 
-  updateUsername: function (origin_email, newUsername) {
-    return `UPDATE users SET username= "${newUsername}"
-              WHERE email= "${origin_email}"`;
+  updatePassword: function (newPassword, token) {
+    return `UPDATE login
+              JOIN tokens
+                ON login.user_id = tokens.user_id
+                  SET hash_password= "${newPassword}"
+                    WHERE token LIKE "${token}"`;
   },
 
   deleteUser: function (token) {
-    return `DELETE FROM users WHERE token= "${token}"`;
+    return `DELETE users, login, tokens
+              FROM users
+                JOIN login ON users.id = login.user_id
+                  JOIN tokens ON tokens.user_id = login.user_id
+                    WHERE token= "${token}"`;
   },
 
   getUser: function (token) {

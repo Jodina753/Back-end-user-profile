@@ -7,7 +7,7 @@ app.delete("/", async (req, res) => {
     selectQueries.selectUserCount(req.headers.email)
   );
 
-  if (results[0].count > 0) {
+  if (results[0].count === 0) {
     req.asyncMySQL(selectQueries.deleteUser(req.headers.token));
 
     res.send({ status: 200, error: "User has been deleted." });
