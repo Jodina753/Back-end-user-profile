@@ -30,12 +30,10 @@ app.patch("/", async (req, res) => {
       
     }
 
-    
-
-    res.send({ status: 200, error: "User updated!" });
+    res.send({ status: 1});
   } else {
     res.send({
-      status: 404,
+      status: 0,
       error: "The details you have entered do not match our database.",
     });
   }

@@ -10,9 +10,9 @@ app.delete("/", async (req, res) => {
   if (results[0].count === 0) {
     req.asyncMySQL(selectQueries.deleteUser(req.headers.token));
 
-    res.send({ status: 200, error: "User has been deleted." });
+    res.send({ status: 1 });
   } else {
-    res.send({ status: 400, error: "User does not exist" });
+    res.send({ status: 0, error: "User does not exist" });
   }
 });
 

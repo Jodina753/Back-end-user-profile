@@ -28,15 +28,14 @@ app.listen(port, () => console.log(`I am Listening on port ${port}`));
 
 //authenticate
 async function authenticate(req, res, next) {
+
   const results = await req.asyncMySQL(
     selectQueries.getUserIdFromToken(req.headers.token)
   );
-  console.log(results);
 
   if (!results[0]) {
     res.send({ status: 0, error: "try again" });
   } else {
-    
     next();
   }
 }

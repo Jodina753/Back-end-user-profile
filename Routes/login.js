@@ -11,7 +11,6 @@ app.post("/", async (req, res) => {
     selectQueries.login(req.body.email, hashPassword)
   );
 
-console.log(results)
 
   if (!results[0]) {
     res.send({
@@ -25,7 +24,7 @@ console.log(results)
 
   req.asyncMySQL(selectQueries.addToken(results[0].id, token));
 
-  res.send({token});
+  res.send({status: 1, token});
 });
 
 module.exports = app;

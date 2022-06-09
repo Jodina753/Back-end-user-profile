@@ -3,10 +3,10 @@ const app = express.Router();
 const selectQueries = require("../mySQL/Queries/index");
 
 app.delete("/", async (req, res) => {
-
   req.asyncMySQL(selectQueries.logout(req.headers.token));
 
-  res.send({ status: 200, error: "You have sucessfully logged out" });
+  res.send({ status: 1 });
 });
 
 module.exports = app;
+ 

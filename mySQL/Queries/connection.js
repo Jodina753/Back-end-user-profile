@@ -10,8 +10,6 @@ const connection = mysql.createConnection({
 
 connection.connect();
 
-module.exports = connection;
-
 function asyncMySQL(query) {
   return new Promise((resolve, reject) => {
     connection.query(query, (error, results) => {

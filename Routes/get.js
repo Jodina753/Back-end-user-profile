@@ -8,9 +8,9 @@ app.get("/", async (req, res) => {
   );
 
   if (!results[0]) {
-    res.send({ status: 400, error: "User does not exist" });
+    res.send({ status: 0, error: "User does not exist" });
   } else {
-    res.send(results);
+    res.send({status: 1, results});
   }
 });
 
