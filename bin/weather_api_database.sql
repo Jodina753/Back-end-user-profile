@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 09, 2022 at 01:47 AM
+-- Generation Time: Jun 09, 2022 at 08:46 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.28
 
@@ -39,7 +39,7 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`id`, `user_id`, `hash_password`, `entry _date`) VALUES
-(6, 6, '6dd1a4d3ea86d3abc8f46bcce53be910d66ff1f21b9b580d2918dbfc9e7b5a52', '2022-05-08 23:43:42');
+(8, 8, '241fa70a0c16f62ee02753ef21e22c9dea6abfe04181849a954f3bb4a2ca5599', '2022-06-09 18:28:08');
 
 -- --------------------------------------------------------
 
@@ -61,9 +61,17 @@ CREATE TABLE `login_log` (
 
 CREATE TABLE `tokens` (
   `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `token` varchar(128) NOT NULL,
   `entry_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tokens`
+--
+
+INSERT INTO `tokens` (`id`, `user_id`, `token`, `entry_date`) VALUES
+(0, 8, 'JwKZp4amMkq7Oo3Mpbw5PXD63mkti4MF1654799303031', '2022-06-09 18:28:23');
 
 -- --------------------------------------------------------
 
@@ -83,7 +91,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `entry_date`) VALUES
-(6, 'EHunt', 'Ethan_Hunt@MissionImpossible.org', '2022-05-08 23:43:42');
+(8, 'ABC', 'ABC@123', '2022-06-09 18:28:08');
 
 --
 -- Indexes for dumped tables
@@ -122,7 +130,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `login_log`
@@ -134,7 +142,7 @@ ALTER TABLE `login_log`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

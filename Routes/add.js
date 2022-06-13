@@ -4,7 +4,7 @@ const selectQueries = require("../mySQL/Queries/index");
 const sha256 = require("sha256");
 
 app.post("/", async (req, res) => {
-  if (!req.body.email || !req.body.password || req.body.username) {
+  if (!req.body.email || !req.body.password || !req.body.username) {
     res.send({ status: 0, error: "Missing data" });
     return;
   }
