@@ -8,7 +8,10 @@ app.patch("/", async (req, res) => {
     selectQueries.selectUserCount(req.headers.email)
   );
 
-  if (results[0].count === 0) {
+  if (
+    results[0].count === 0 &&
+    (req.body.email || req.body.password || req.body.username)
+  ) {
     if (req.body.email) {
       req.asyncMySQL(
         selectQueries.updateEmail(req.body.email, req.headers.token)
@@ -21,16 +24,16 @@ app.patch("/", async (req, res) => {
       );
     }
 
-    if (req.body.password) { //Need to convert password to has before updating login table
-      const hashPassword = sha256("user-login-auth:" + req.body.password)
-      
+    if (req.body.password) {
+     
+      const hashPassword = sha256("user-login-auth:" + req.body.password);
+
       req.asyncMySQL(
         selectQueries.updatePassword(hashPassword, req.headers.token)
       );
-      
     }
 
-    res.send({ status: 1});
+    res.send({ status: 1 });
   } else {
     res.send({
       status: 0,
