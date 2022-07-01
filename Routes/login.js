@@ -15,7 +15,7 @@ app.post("/", async (req, res) => {
   if (!results[0]) {
     res.send({
       error:
-        "You've entered an incorrect password or email, please check and try again.",
+        "Email or password is incorrect. Please check and try again.",
     });
     return;
   }

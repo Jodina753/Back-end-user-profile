@@ -37,7 +37,7 @@ app.patch("/", async (req, res) => {
   } else {
     res.send({
       status: 0,
-      error: "The details you have entered do not match our database.",
+      error: "Please complete the field you wish to amend.",
     });
   }
 });

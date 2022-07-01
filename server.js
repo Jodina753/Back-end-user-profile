@@ -31,7 +31,9 @@ async function authenticate(req, res, next) {
   const results = await req.asyncMySQL(
     selectQueries.getUserIdFromToken(req.headers.token)
   );
- 
+
+ req.userID = results[0].user_id;
+
   if (!results[0]) {
     res.send({ status: 0, error: "try again" });
   } else {

@@ -1,3 +1,4 @@
+
 module.exports = {
   selectUserCount: function (email) {
     return `SELECT count(*) as count
@@ -45,12 +46,12 @@ module.exports = {
                     WHERE token LIKE "${token}"`;
   },
 
-  deleteUser: function (token) {
+  deleteUser: function (userID) {
     return `DELETE users, login, tokens
               FROM users
                 JOIN login ON users.id = login.user_id
                   JOIN tokens ON tokens.user_id = login.user_id
-                    WHERE token= "${token}"`;
+                    WHERE users.id= "${userID}"`;
   },
 
   getUser: function (token) {

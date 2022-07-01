@@ -8,8 +8,9 @@ app.delete("/", async (req, res) => {
   );
 
   if (results[0].count === 0) {
-    req.asyncMySQL(selectQueries.deleteUser(req.headers.token));
+    req.asyncMySQL(selectQueries.deleteUser(req.userID));
 
+    console.log(selectQueries.deleteUser(req.userID))
     res.send({ status: 1 });
   } else {
     res.send({ status: 0, error: "User does not exist" });
