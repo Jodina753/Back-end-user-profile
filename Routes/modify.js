@@ -2,6 +2,7 @@ const express = require("express");
 const app = express.Router();
 const selectQueries = require("../mySQL/Queries/index");
 const sha256 = require("sha256");
+const serverSecret = require("../config");
 
 app.patch("/", async (req, res) => {
   const results = await req.asyncMySQL(
@@ -25,8 +26,7 @@ app.patch("/", async (req, res) => {
     }
 
     if (req.body.password) {
-     
-      const hashPassword = sha256("user-login-auth:" + req.body.password);
+      const hashPassword = sha256(serverSecret + req.body.password);
 
       req.asyncMySQL(
         selectQueries.updatePassword(hashPassword, req.headers.token)

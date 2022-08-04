@@ -3,19 +3,18 @@ const app = express.Router();
 const utils = require("./utils");
 const selectQueries = require("../mySQL/Queries/index");
 const sha256 = require("sha256");
+const serverSecret = require("../config");
 
 app.post("/", async (req, res) => {
-  const hashPassword = sha256("user-login-auth:" + req.body.password);
+  const hashPassword = sha256(serverSecret + req.body.password);
 
   const results = await req.asyncMySQL(
     selectQueries.login(req.body.email, hashPassword)
   );
 
-
   if (!results[0]) {
     res.send({
-      error:
-        "Email or password is incorrect. Please check and try again.",
+      error: "Email or password is incorrect. Please check and try again.",
     });
     return;
   }
@@ -24,7 +23,7 @@ app.post("/", async (req, res) => {
 
   req.asyncMySQL(selectQueries.addToken(results[0].id, token));
 
-  res.send({status: 1, token});
+  res.send({ status: 1, token });
 });
 
 module.exports = app;

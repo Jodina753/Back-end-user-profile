@@ -1,12 +1,7 @@
 const mysql = require("mysql");
+const dbConfig = require("../db_config");
 
-const connection = mysql.createConnection({
-  database: "weather_api_database",
-  user: "root",
-  password: "",
-  host: "localhost",
-  port: "3306",
-});
+const connection = mysql.createConnection(dbConfig);
 
 connection.connect();
 
